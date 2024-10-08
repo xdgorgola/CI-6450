@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724c9b786d139c9459e7cb406ecdf3cd, type: 3}
+  m_Name: MVarsD_Goblin_Slow
+  m_EditorClassIdentifier: 
+  _radius: 2
+  _maxSpeed: 2
+  _maxRotation: 120
+  _maxAcceleration: 5
+  _maxAngular: 120
+  _fleeTreshold: 10
+  _arriveTime: 0.01
+  _prediction: 0.5
+  _linearSlowRadius: 4
+  _linearTargetRadius: 1
+  _angularSlowRadius: 10
+  _angularTargetRadius: 0.05
+  _avoidanceDistance: 2

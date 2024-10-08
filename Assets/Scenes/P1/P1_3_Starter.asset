@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: P1_3_Starter
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":"Kinematic
+      Wander","summary":null,"pan":{"x":0.0,"y":0.0},"zoom":1.0,"elements":[{"coroutine":false,"defaultValues":{},"position":{"x":-206.0,"y":-94.0},"guid":"7533b751-259a-4569-b552-4c44b7a595c2","$version":"A","$type":"Unity.VisualScripting.Start","$id":"9"},{"specifyFallback":false,"kind":"Scene","defaultValues":{"name":{"$content":"Agent","$type":"System.String"}},"position":{"x":-233.0,"y":12.0},"guid":"cb063e51-9255-46d1-8628-279d59b79219","$version":"A","$type":"Unity.VisualScripting.GetVariable","$id":"11"},{"chainable":false,"parameterNames":[],"member":{"name":"EnableKinematicWander","parameterTypes":[],"targetType":"AgentMovement","targetTypeName":"AgentMovement","$version":"A"},"defaultValues":{"target":null},"position":{"x":55.0,"y":-5.0},"guid":"8b2b83d5-d552-4ec0-be70-8efe63464ba1","$version":"A","$type":"Unity.VisualScripting.InvokeMember","$id":"13"},{"sourceUnit":{"$ref":"9"},"sourceKey":"trigger","destinationUnit":{"$ref":"13"},"destinationKey":"enter","guid":"e944eb3d-9cf4-402d-aa19-9c419273c51c","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"11"},"sourceKey":"value","destinationUnit":{"$ref":"13"},"destinationKey":"target","guid":"f8d32e4d-9326-4d08-be90-b4c429366721","$type":"Unity.VisualScripting.ValueConnection"}],"$version":"A"}}'
+    _objectReferences: []
