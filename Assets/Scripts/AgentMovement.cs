@@ -157,7 +157,7 @@ public class AgentMovement : MonoBehaviour
         (float orRads, float orDegs) = MathUtils.WrapOrientation(KinematicData.Orientation);
         KinematicData.Orientation = orRads;
 
-        KinematicData.Velocity += (baseSteer.linear + 2.5f * avoidSteer.linear + 7f * separationSteer.linear + 2.5f * agentAvoidSteer.linear) * Time.deltaTime;
+        KinematicData.Velocity += (baseSteer.linear + 7f * avoidSteer.linear + 7f * separationSteer.linear + 2.5f * agentAvoidSteer.linear) * Time.deltaTime;
         KinematicData.Rotation += (baseSteer.angular + lookSteer.angular) * Time.deltaTime;
 
         if (KinematicData.Velocity.magnitude <= MathUtils.STOP_EPSILON)
@@ -252,7 +252,7 @@ public class AgentMovement : MonoBehaviour
 
 
     private (Vector2 linFric, float angFric) CalculateFriction() =>
-        (KinematicData.Velocity.normalized * 2.5f, KinematicData.Rotation * 0.90625f);
+        (KinematicData.Velocity.normalized * 2.2f, KinematicData.Rotation * 0.90625f);
 
     private SteeringOutput InputToSteering()
     {
@@ -266,7 +266,6 @@ public class AgentMovement : MonoBehaviour
     {
         if (KinematicData is null)
         {
-            Debug.Log(gameObject.name);
             KinematicData = new KinematicMovementData(transform.position, transform.eulerAngles.z * Mathf.Deg2Rad, Vector2.zero, 0f);
             return;
         }

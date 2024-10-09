@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class MathUtils
 {
-    public const float STOP_EPSILON = 0.01f;
+    public const float STOP_EPSILON = 0.001f;
 
     public static Vector2 VectorFromOrientation(float orientation) =>
     new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation));

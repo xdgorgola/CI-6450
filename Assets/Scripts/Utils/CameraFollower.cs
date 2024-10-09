@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -19,6 +20,7 @@ public class CameraFollower : MonoBehaviour
     {
         if (_target is null) throw new System.NullReferenceException();
         _cam = GetComponent<Camera>();
+        _cam.transform.position = new(_target.position.x, _target.position.y, -10);
     }
 
     private void Update()

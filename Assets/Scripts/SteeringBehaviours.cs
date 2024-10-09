@@ -161,8 +161,6 @@ namespace IA.Steering.Dynamic
 
             Vector2 predictedPos = Target.Position + Target.Velocity * prediction;
             base.Target.Position = predictedPos;
-
-
 #if UNITY_EDITOR
             Debug.DrawCross(predictedPos, 0.25f, Color.white);
 #endif

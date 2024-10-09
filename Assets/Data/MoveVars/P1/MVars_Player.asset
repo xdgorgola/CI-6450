@@ -17,9 +17,9 @@ MonoBehaviour:
   _maxRotation: 360
   _maxAcceleration: 5
   _maxAngular: 360
-  _fleeTreshold: 10
+  _fleeTreshold: 15
   _arriveTime: 0.05
-  _prediction: 0.5
+  _prediction: 1
   _linearSlowRadius: 4
   _linearTargetRadius: 1
   _angularSlowRadius: 10

@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _playerControlled: 0
-  _agentMoveVars: {fileID: 11400000, guid: 8e4ef23b90bdbe24895f3bcd5301c7c9, type: 2}
+  _agentMoveVars: {fileID: 11400000, guid: 1d09069896614e4428caefb2fa408955, type: 2}
   _avoidanceRays: []
   _avoidanceRaysOrigin: {fileID: 0}
   _framesBtwAAvoid: 5
@@ -895,7 +895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _playerControlled: 0
-  _agentMoveVars: {fileID: 11400000, guid: 1d09069896614e4428caefb2fa408955, type: 2}
+  _agentMoveVars: {fileID: 11400000, guid: 5a97ad1495162d74582a1155d68fed13, type: 2}
   _avoidanceRays: []
   _avoidanceRaysOrigin: {fileID: 0}
   _framesBtwAAvoid: 5
@@ -2657,7 +2657,7 @@ Transform:
   m_GameObject: {fileID: 1148003205}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.71, y: -1.66, z: 0}
+  m_LocalPosition: {x: -1.5, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
