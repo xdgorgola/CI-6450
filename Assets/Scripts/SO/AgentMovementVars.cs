@@ -29,6 +29,10 @@ public class AgentMovementVars : ScriptableObject
     private float _angularTargetRadius = 2f;
     [SerializeField]
     private float _avoidanceDistance = 1.5f;
+    [SerializeField]
+    private float _linearFriction = 2.2f;
+    [SerializeField]
+    private float _angularFriction = 0.90625f;
 
     public float Radius { get { return _radius; } }
     public float MaxSpeed { get { return _maxSpeed; } }
@@ -47,4 +51,6 @@ public class AgentMovementVars : ScriptableObject
     public float AngularTargetRadiusRad { get { return _angularTargetRadius * Mathf.Deg2Rad; } }
     public float AngularTargetRadiusDeg { get { return _angularTargetRadius; } }
     public float AvoidanceDistance { get { return _avoidanceDistance; } }
+    public float LinearFriction { get { return _linearFriction; } }
+    public float AngularFriction { get { return _angularFriction; } }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -225,6 +224,7 @@ namespace IA.Steering.Dynamic
         }
     }
 
+
     public class LookVelocity : Align
     {
         public override SteeringOutput GetSteering()
@@ -238,6 +238,7 @@ namespace IA.Steering.Dynamic
 
         public LookVelocity(KinematicMovementData character, AgentMovementVars moveVars): base(character, new(), moveVars) {}
     }
+
 
     public class Wander : Face
     {
@@ -426,6 +427,57 @@ namespace IA.Steering.Dynamic
         {
             _rays = rays;
             _avoidanceMask = avoidanceMask;
+        }
+    }
+
+
+    public class FollowPath : Seek
+    {
+        private List<Vector2> Path { get; init; }
+        
+        public bool Loops { get; init; }
+        public bool Arrived { get; private set; }
+
+        private int _currentWp = 0;
+
+        public override SteeringOutput GetSteering()
+        {
+            if (Arrived)
+                return SteeringOutput.NoSteering;
+
+            Vector2 target = Path[_currentWp];
+            if ((Character.Position - target).magnitude <= MoveVars.LinearTargetRadius)
+            {
+                _currentWp = _currentWp + 1;
+                if (Loops)
+                    _currentWp = _currentWp % Path.Count;
+
+                if (_currentWp >= Path.Count)
+                {
+                    Arrived = true;
+                    return SteeringOutput.NoSteering;
+                }
+
+                target = Path[_currentWp];
+            }
+
+#if UNITY_EDITOR
+            for (int wp = 0; wp < Path.Count - 1; ++wp)
+                Debug.DrawLine(Path[wp], Path[(wp + 1) % Path.Count], Color.magenta);
+
+            Debug.DrawCircle(target, 0.1f, 8, Color.green);
+            if (Loops)
+                Debug.DrawLine(Path[^1], Path[0], Color.magenta);
+#endif
+
+            base.Target.Position = target;
+            return base.GetSteering();
+        }
+
+        public FollowPath(KinematicMovementData character, AgentMovementVars moveVars, List<Vector2> path, bool loop) : base(character, new(), moveVars)
+        {
+            Path = path ?? throw new NullReferenceException(nameof(path));
+            Loops = loop;
         }
     }
 }

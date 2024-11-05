@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: MVarsD_Goblin_Normal
   m_EditorClassIdentifier: 
   _radius: 2
-  _maxSpeed: 6
+  _maxSpeed: 3
   _maxRotation: 350
-  _maxAcceleration: 6
+  _maxAcceleration: 70
   _maxAngular: 350
   _fleeTreshold: 15
   _arriveTime: 0.01
-  _prediction: 1
+  _prediction: 0.5
   _linearSlowRadius: 4
-  _linearTargetRadius: 1
+  _linearTargetRadius: 0.5
   _angularSlowRadius: 10
   _angularTargetRadius: 0.05
   _avoidanceDistance: 2
+  _linearFriction: 4.4
+  _angularFriction: 0.90625

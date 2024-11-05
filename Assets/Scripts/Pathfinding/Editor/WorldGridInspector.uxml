@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Label text="Grid sizes" name="GridSizes" style="-unity-font-style: bold;" />
+    <ui:Vector2Field label="Origin" name="Origin" binding-path="_origin" style="height: 30px; flex-direction: row; align-items: flex-start;" />
+    <ui:UnsignedIntegerField label="Column count" value="42" name="ColumnCount" binding-path="_columnCount" style="height: auto;" />
+    <ui:UnsignedIntegerField label="Row count" value="42" name="RowCount" binding-path="_rowCount" />
+    <ui:FloatField label="Column width" value="42.2" name="ColumnWidth" binding-path="_columnWidth" style="height: auto;" />
+    <ui:FloatField label="Row height" value="42.2" name="RowHeight" binding-path="_rowHeight" />
+    <ui:VisualElement style="flex-grow: 1; height: 12px;" />
+    <ui:Label text="Generation" name="GenerationLabel" style="-unity-text-align: upper-left; -unity-font-style: bold;" />
+    <ui:Button text="Generate graph" name="generate-graph-button" />
+</ui:UXML>

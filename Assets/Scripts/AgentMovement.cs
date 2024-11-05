@@ -9,6 +9,7 @@ public class AgentMovement : MonoBehaviour
     [SerializeField]
     private bool _playerControlled = false;
     private bool _kinematicMode = false;
+    private bool _followingPath = false;
 
     [SerializeField]
     private AgentMovementVars _agentMoveVars;
@@ -55,6 +56,11 @@ public class AgentMovement : MonoBehaviour
     public bool IsKinematic
     {
         get { return _kinematicMode; }
+    }
+
+    public ref readonly AgentMovementVars MoveVars
+    {
+        get { return ref _agentMoveVars; }
     }
 
     public KinematicMovementData KinematicData { get; private set; }
@@ -136,6 +142,9 @@ public class AgentMovement : MonoBehaviour
         SteeringOutput agentAvoidSteer = HandleAgentAvoidance();
         SteeringOutput lookSteer = _lookSteering?.GetSteering() ?? SteeringOutput.NoSteering;
 
+        if (ArrivedPathGoal())
+            StopFollowPath();
+
 #if UNITY_EDITOR
         Debug.DrawRay(KinematicData.Position, baseSteer.linear, Color.green);
         Debug.DrawRay(KinematicData.Position, avoidSteer.linear, Color.blue);
@@ -147,17 +156,17 @@ public class AgentMovement : MonoBehaviour
         KinematicData.Orientation += KinematicData.Rotation * Time.deltaTime;
 
         (Vector2 linFric, float angFric) = CalculateFriction();
-        
+
         KinematicData.Velocity -= linFric * Time.deltaTime;
         KinematicData.Rotation -= angFric * Time.deltaTime;
-        
+
         if (KinematicData.Velocity.magnitude <= MathUtils.STOP_EPSILON)
             KinematicData.Velocity = Vector2.zero;
 
         (float orRads, float orDegs) = MathUtils.WrapOrientation(KinematicData.Orientation);
         KinematicData.Orientation = orRads;
 
-        KinematicData.Velocity += (baseSteer.linear + 7f * avoidSteer.linear + 7f * separationSteer.linear + 2.5f * agentAvoidSteer.linear) * Time.deltaTime;
+        KinematicData.Velocity += (baseSteer.linear + 2f * avoidSteer.linear + 7f * separationSteer.linear + 2.5f * agentAvoidSteer.linear) * Time.deltaTime;
         KinematicData.Rotation += (baseSteer.angular + lookSteer.angular) * Time.deltaTime;
 
         if (KinematicData.Velocity.magnitude <= MathUtils.STOP_EPSILON)
@@ -252,7 +261,11 @@ public class AgentMovement : MonoBehaviour
 
 
     private (Vector2 linFric, float angFric) CalculateFriction() =>
-        (KinematicData.Velocity.normalized * 2.2f, KinematicData.Rotation * 0.90625f);
+        (
+        KinematicData.Velocity.normalized * _agentMoveVars.LinearFriction, 
+        KinematicData.Rotation * _agentMoveVars.AngularFriction
+        );
+
 
     private SteeringOutput InputToSteering()
     {
@@ -261,6 +274,8 @@ public class AgentMovement : MonoBehaviour
         return new SteeringOutput(vel.normalized * _agentMoveVars.MaxSpeed, _agentMoveVars.MaxAngularRad * ang);
     }
 
+    private bool ArrivedPathGoal() =>
+        _followingPath && (_baseSteering as IA.Steering.Dynamic.FollowPath).Arrived;
 
     private void MatchTransform()
     {
@@ -274,7 +289,6 @@ public class AgentMovement : MonoBehaviour
         KinematicData.Orientation = transform.eulerAngles.z * Mathf.Deg2Rad;
     }
 
-    #region DEBUG_FUNCS
     public void EnableKinematicSeek()
     {
         _kinematicMode = true;
@@ -400,7 +414,43 @@ public class AgentMovement : MonoBehaviour
 
         _lookSteering = new IA.Steering.Dynamic.LookVelocity(KinematicData, _agentMoveVars);
     }
-    #endregion
+
+    public void StartFollowPath(List<Vector2> path, bool loop)
+    {
+        _kinematicMode = false;
+        if (path is null || path.Count == 0)
+        {
+            Debug.LogWarning("[AI.STEERING] Trying to follow an empty path");
+            return;
+        }
+
+        if (path.Count == 1 && loop)
+        {
+            Debug.LogWarning("[AI.STEERING] Trying to loop a single node path");
+            return;
+        }
+
+        _baseSteering = new IA.Steering.Dynamic.FollowPath(KinematicData, _agentMoveVars, path, loop);
+    }
+
+
+    public void StopFollowPath()
+    {
+        if (!_followingPath)
+        {
+            Debug.LogWarning("[AI.STEERING] Trying to stop following a path, but the agent is not following one.");
+            return;
+        }
+
+        _baseSteering = null;
+        _followingPath = false;
+    }
+
+    public void ClearBaseMovement()
+    {
+        _baseSteering = null;
+        _followingPath = false;
+    }
 
 
     private void OnDrawGizmos()
